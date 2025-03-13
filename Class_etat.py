@@ -1,8 +1,64 @@
 class Automate:
-    def __init__(self, states, alphabet=['a', 'b']):
+    def __init__(self, states = [], alphabet=['a', 'b']):
         self.alphabet = alphabet # tableau des composantes de l'alphabet
         self.states = states # tableau contenant tout les etats de l'automate
         self.complete = False
+
+
+    def read_automata(self, automata_id):
+        """
+        Methode qui permet de lire un automate depuis un fichier txt
+        === FORMAT DU FICHIER TXT ===
+        le fichier .txt doit faire n+1 ligne avec n le nombre d'états de l'automate
+        la première ligne correspond à l'alphabet de l'automate
+        les lignes suivantes correspondent au tableau des transitions
+        une ligne correspond à un état et ses transitions
+        la première colonne correspond au nom de l'état
+        les colonnes suivantes à ses transitions
+        si l'état est une entrée/sortie, E ou S est renseigné sur la meme ligne après les transitions
+        chaque caractère du fichier est séparé d'un espace
+        :param automata_id: id de l'automate à créer
+        :return:
+        """
+        # lecture du fichier
+        file = open(f"automate_{automata_id}.txt", "r")
+        automata = file.readlines()
+        file.close()
+        alphabet = automata[0].split(" ")
+        states = []
+
+        # parcours ligne par ligne
+        for i in range(1, len(automata)):
+            file_line = automata[i].split(" ")
+            transitions = {}
+            exit = False
+            entry = False
+
+            # parcours caractère par caractère
+            for j in range(0, len(alphabet)):
+                next_states = []
+                # boucle for si plusieurs transitions pour une meme lettre
+                for letter in file_line[j+1]:
+                    next_states.append(letter)
+                transitions[alphabet[j]] = next_states
+
+            # si l'état est une entrée/sortie
+            if len(file_line) > len(alphabet)+1:
+                for k in range(len(alphabet), len(file_line)):
+                    if file_line[k] == "S":
+                        exit = True
+                    elif file_line[k] == "E":
+                        entry = True
+
+            new_state = Etat(file_line[0], transitions, entry, exit)
+            states.append(new_state)
+
+        # Creation automate
+        self.alphabet = alphabet
+        self.states = states
+
+
+
 
     def display_automate(self):
         print("\n\n|\tEtat\t|\t", end="")
