@@ -1,4 +1,4 @@
-class Automate:
+class Automata:
     def __init__(self, states = [], alphabet=['a', 'b']):
         self.alphabet = alphabet # tableau des composantes de l'alphabet
         self.states = states # tableau contenant tout les etats de l'automate
@@ -51,7 +51,7 @@ class Automate:
                     elif file_line[k] == "E":
                         entry = True
 
-            new_state = Etat(file_line[0], transitions, entry, exit)
+            new_state = State(file_line[0], transitions, entry, exit)
             states.append(new_state)
 
         # Creation automate
@@ -68,24 +68,25 @@ class Automate:
             print(f"\n|\t{state.id}\t|\t", end="")
             for letter in self.alphabet: # pour chaque lettre de l'alphabet
                 for transition in state.transition_dict[letter]: # pour chaque transition associer à cette lettre de l'alphabet
-                    print(transition, " ", end="") # on affiche la transition dans la case du tableau
+                    print(transition.id, " ", end="") # on affiche la transition dans la case du tableau
                 print("\t|\t", end="")
 
     def complete_automate(self):
+        bind = State("P")
         nb_void_transition = 0
         # On remplace tout les transitions vide par une transition vers P la poubelle
         for state in self.states:
             for letter in self.alphabet:
                 if len(state.transition_dict[letter]) == 0:
                     nb_void_transition += 1
-                    state.transition_dict[letter].append("P")
+                    state.transition_dict[letter].append(bind)
 
         # Dans le cas où l'automate n'était pas déjà complet, on ajoute l'état poubelle :
         if nb_void_transition > 0:
             bind_transition = {}
             for letter in self.alphabet:
-                bind_transition[letter] = ["P"]
-            bind = Etat("P", bind_transition)
+                bind_transition[letter] = [bind]
+            bind.add_transition_dict(bind_transition)
             self.states.append(bind)
 
         self.complete = True
@@ -96,6 +97,29 @@ class Automate:
             if state.is_entry():
                 entries.append(state)
         return entries
+
+    def standardise(self):
+        '''Fonction permettant de standardiser un automate'''
+        entries = self.regroup_entries()
+        is_exit = False
+        for state in entries:
+            state.entry = False # Les entrées deviennent de simple état
+            if state.is_exit():
+                is_exit = True
+
+        # Ajout des transitions de l'état d'entrer
+        transitions_dict = {}
+        for letter in self.alphabet:
+            transitions = []  # sous tableau contenant les états
+            for state in entries:
+                for tran in state.transition_dict[letter]:
+                    if tran not in transitions_dict[letter]:
+                        transitions.append(tran)
+            transitions_dict[letter] = transitions
+
+        new_state = State("i", transitions_dict, entry=True, exit=is_exit)
+        self.states.insert(0, new_state)
+
 
     def determinate(self):
         groups = [] # tableau 2D des regroupements d'état
@@ -123,7 +147,7 @@ class Automate:
             if i > 100: # On limite l'automate standart à 100 états maximum
                 i = 100000
 
-class Etat:
+class State:
     def __init__(self, id, transition={}, entry=False, exit=False):
         self.id = id
         self.transition_dict = transition # dictionaire de tableaux contenant tous les états vers lesquels il y a une transition

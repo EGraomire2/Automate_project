@@ -3,8 +3,8 @@ from Class_etat import *
 def main():
     print("Debut du programe")
 
-    Etat_0 = Etat(0, entry=True)
-    Etat_1 = Etat(1, exit=True)
+    Etat_0 = State(0, entry=True)
+    Etat_1 = State(1, exit=True)
 
     transition_0 = {"a" : [Etat_1],
                     "b" : [Etat_0]}
@@ -15,7 +15,7 @@ def main():
     Etat_0.add_transition_dict(transition_0)
     Etat_1.add_transition_dict(transition_1)
 
-    Automate_0 = Automate([Etat_0, Etat_1])
+    Automate_0 = Automata([Etat_0, Etat_1])
     Automate_0.display_automate()
 
     Automate_0.complete_automate()
