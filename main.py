@@ -3,15 +3,19 @@ from Class_etat import *
 def main():
     print("Debut du programe")
 
-    transition_0 = {"a" : [1],
-                    "b" : [0]}
+    Etat_0 = Etat(0, entry=True)
+    Etat_1 = Etat(1, exit=True)
+
+    transition_0 = {"a" : [Etat_1],
+                    "b" : [Etat_0]}
 
     transition_1 = {"a": [],
-                    "b": [1]}
-    Etat_0 = Etat(0, transition_0, entry=True)
-    Etat_1 = Etat(1, transition_1, exit=True)
-    Automate_0 = Automate([Etat_0, Etat_1])
+                    "b": [Etat_1]}
 
+    Etat_0.add_transition_dict(transition_0)
+    Etat_1.add_transition_dict(transition_1)
+
+    Automate_0 = Automate([Etat_0, Etat_1])
     Automate_0.display_automate()
 
     Automate_0.complete_automate()

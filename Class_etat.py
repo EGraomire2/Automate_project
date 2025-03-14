@@ -3,6 +3,7 @@ class Automate:
         self.alphabet = alphabet # tableau des composantes de l'alphabet
         self.states = states # tableau contenant tout les etats de l'automate
         self.complete = False
+        self.standart = False
 
 
     def read_automata(self, automata_id):
@@ -56,8 +57,6 @@ class Automate:
         # Creation automate
         self.alphabet = alphabet
         self.states = states
-
-
 
 
     def display_automate(self):
@@ -127,12 +126,18 @@ class Automate:
 class Etat:
     def __init__(self, id, transition={}, entry=False, exit=False):
         self.id = id
-        self.transition_dict = transition # dictionaire de tableaux contenant toutes les transitions pour chaque lettre de l'alphabet
-        self.entry = entry
+        self.transition_dict = transition # dictionaire de tableaux contenant tous les états vers lesquels il y a une transition
+        #attribut : lettre de l'alphabet - clés : tableau d'etat
+
         self.exit = exit
+        self.entry = entry
 
     def is_entry(self):
         return self.entry
 
     def is_exit(self):
         return self.exit
+
+    def add_transition_dict(self, transition_dict):
+        '''Permet d'ajouter le dictionaire de transition, dans le cas où cela n'ait pas été fait lors de l'initialisation de l'instance de l'objet'''
+        self.transition_dict = transition_dict
