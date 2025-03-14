@@ -21,6 +21,12 @@ def main():
     Automate_0.complete_automate()
     Automate_0.display_automate()
 
+    Automate_0.standardise()
+    Automate_0.display_automate()
+
+    Automate_0.determinate()
+    Automate_0.display_automate()
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()

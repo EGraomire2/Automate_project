@@ -4,6 +4,7 @@ class Automata:
         self.states = states # tableau contenant tout les etats de l'automate
         self.complete = False
         self.standart = False
+        self.determinated = False
 
 
     def read_automata(self, automata_id):
@@ -60,12 +61,26 @@ class Automata:
 
 
     def display_automate(self):
-        print("\n\n|\tEtat\t|\t", end="")
+        print("\n\n   |  Etat  |\t", end="")
         for letter in self.alphabet:
             print(f"{letter}\t|\t", end="")
+        print("\n" + "-" * 29, end="")
 
+        ######## affichage du tableau de transitions #######
         for state in self.states:
-            print(f"\n|\t{state.id}\t|\t", end="")
+            print("\n", end="")
+
+            # affichage des entrées/sorties
+            if state.is_entry() and state.is_exit:
+                print("E/S", end="")
+            elif state.is_entry():
+                print("  E", end="")
+            elif state.is_exit():
+                print("  S", end="")
+            else:
+                print("   ", end="")
+
+            print(f"|\t{state.id}\t|\t", end="")
             for letter in self.alphabet: # pour chaque lettre de l'alphabet
                 for transition in state.transition_dict[letter]: # pour chaque transition associer à cette lettre de l'alphabet
                     print(transition.id, " ", end="") # on affiche la transition dans la case du tableau
@@ -113,12 +128,14 @@ class Automata:
             transitions = []  # sous tableau contenant les états
             for state in entries:
                 for tran in state.transition_dict[letter]:
-                    if tran not in transitions_dict[letter]:
+                    if tran not in transitions:
                         transitions.append(tran)
             transitions_dict[letter] = transitions
 
         new_state = State("i", transitions_dict, entry=True, exit=is_exit)
         self.states.insert(0, new_state)
+
+        self.standart = True
 
 
     def determinate(self):
@@ -128,24 +145,44 @@ class Automata:
         i = 0
         is_entry = True
 
+        # On parcourt l'ensemble des regroupements d'états jusqu'à les avoir tous traités
         while i < len(groups):
+            print(i)
             is_exit = False
-            for state in groups:
+            for state in groups[i]:
                 if state.is_exit():
                     is_exit = True
 
-            sub_group = [] # sous tableau contenant les états
+            new_state = State(i, entry=is_entry, exit=is_exit)
+            new_state_transitions = {}
+
             for letter in self.alphabet:
-                for state in groups:
+                sub_group = [] # sous tableau stockant les etats que l'on souhaite regrouper
+                print("\nLettre :", letter)
+                for state in groups[i]:
+                    print("State : ", state.id)
                     for transition in state.transition_dict[letter]:
-                        sub_group.append(transition)
+                        if transition not in sub_group:
+                            sub_group.append(transition)
                 if sub_group not in groups:
+                    print("On ajoute : subgroup")
+                    for l in sub_group:
+                        print(l.id, end=" ")
                     groups.append(sub_group)
+                new_state_transitions[letter] = sub_group
+
+            new_state.add_transition_dict(new_state_transitions)
+            new_states.append(new_state)
+
                     
             is_entry = False # seul le premier état est une entrée, on remet donc is_entry à False après la première itération de la boucle
             i += 1
             if i > 100: # On limite l'automate standart à 100 états maximum
-                i = 100000
+                print("Fatal Error : Infinite Loop")
+                return
+
+            self.states = new_states
+            self.determinated = True
 
 class State:
     def __init__(self, id, transition={}, entry=False, exit=False):
