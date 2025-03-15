@@ -169,7 +169,12 @@ class Automata:
                     for l in sub_group:
                         print(l.id, end=" ")
                     groups.append(sub_group)
-                new_state_transitions[letter] = sub_group
+                    new_state_transitions[letter] = [len(groups) - 1]
+                else:
+                    j=0
+                    while groups[j] != sub_group:
+                        j+=1
+                    new_state_transitions[letter] = [j]
 
             new_state.add_transition_dict(new_state_transitions)
             new_states.append(new_state)
