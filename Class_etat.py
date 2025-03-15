@@ -142,18 +142,17 @@ class Automata:
         groups = [] # tableau 2D des regroupements d'état
         new_states = []
         groups.append(self.regroup_entries()) # On ajoute le regroupement des entrées
+        new_entry = State(0, entry=True)
+        new_states.append(new_entry)
         i = 0
-        is_entry = True
 
         # On parcourt l'ensemble des regroupements d'états jusqu'à les avoir tous traités
         while i < len(groups):
             print(i)
-            is_exit = False
             for state in groups[i]:
                 if state.is_exit():
-                    is_exit = True
+                    new_states[i].exit = True
 
-            new_state = State(i, entry=is_entry, exit=is_exit)
             new_state_transitions = {}
 
             for letter in self.alphabet:
@@ -164,27 +163,34 @@ class Automata:
                     for transition in state.transition_dict[letter]:
                         if transition not in sub_group:
                             sub_group.append(transition)
-                if sub_group not in groups:
+                if sub_group not in groups and sub_group != []:
                     print("On ajoute : subgroup")
                     for l in sub_group:
                         print(l.id, end=" ")
                     groups.append(sub_group)
-                    new_state_transitions[letter] = [len(groups) - 1]
-                else:
+                    new_states.append(State(len(groups) - 1))
+                    new_state_transitions[letter] = [new_states[len(new_states) - 1]]
+                elif sub_group != []:
                     j=0
                     while groups[j] != sub_group:
                         j+=1
-                    new_state_transitions[letter] = [j]
+                    new_state_transitions[letter] = [new_states[j]]
+                else:
+                    new_state_transitions[letter] = []
 
-            new_state.add_transition_dict(new_state_transitions)
-            new_states.append(new_state)
+            new_states[i].add_transition_dict(new_state_transitions)
 
-                    
-            is_entry = False # seul le premier état est une entrée, on remet donc is_entry à False après la première itération de la boucle
             i += 1
             if i > 100: # On limite l'automate standart à 100 états maximum
                 print("Fatal Error : Infinite Loop")
                 return
+
+            # Display subgroups :
+            print("\n\n")
+            for sub in groups:
+                print("")
+                for let in sub:
+                    print(let.id, end="")
 
             self.states = new_states
             self.determinated = True

@@ -23,11 +23,11 @@ def main():
     Automate_0 = Automata([state_0, state_1, state_2])
     Automate_0.display_automate()
 
-    Automate_0.complete_automate()
+    '''Automate_0.complete_automate()
     Automate_0.display_automate()
 
     Automate_0.standardise()
-    Automate_0.display_automate()
+    Automate_0.display_automate()'''
 
     Automate_0.determinate()
     Automate_0.display_automate()
