@@ -195,6 +195,31 @@ class Automata:
             self.states = new_states
             self.determinated = True
 
+    def minimize(self):
+        final = []
+        not_final = []
+        for state in self.states:
+            if state.is_exit():
+                final.append(state)
+            else:
+                not_final.append(state)
+
+        actual_group = [final, not_final]
+        next_group = []
+        while actual_group != next_group:
+            for sub_group in actual_group:
+                # On applique l'algorithme de minimisation à tout les états non_isolés
+                if len(sub_group >= 2):
+                    for letter in self.alphabet:
+                        for state in sub_group:
+                            for i in range(len(actual_group)):
+                                if state in actual_group[i]:
+                                    pass # trouver une manière de diviser sub_group dans différents groupes
+
+            # On met à jour les groupes
+            actual_group = next_group
+            next_group = []
+
 class State:
     def __init__(self, id, transition={}, entry=False, exit=False):
         self.id = id
