@@ -6,7 +6,7 @@ class Automata:
         self.standart = False
 
 
-    def read_automata(self, automata_id):
+    def read_automata(self, automata_id : str):
         """
         Methode qui permet de lire un automate depuis un fichier txt
         === FORMAT DU FICHIER TXT ===
@@ -17,7 +17,7 @@ class Automata:
         la première colonne correspond au nom de l'état
         les colonnes suivantes à ses transitions
         si l'état est une entrée/sortie, E ou S est renseigné sur la meme ligne après les transitions
-        chaque caractère du fichier est séparé d'un espace
+        chaque caractère du fichier est séparé d'une ","
         :param automata_id: id de l'automate à créer
         :return:
         """
@@ -25,23 +25,40 @@ class Automata:
         file = open(f"automate_{automata_id}.txt", "r")
         automata = file.readlines()
         file.close()
-        alphabet = automata[0].split(" ")
-        states = []
+        alphabet = automata[0].split(",")
+        states_list = []
 
         # parcours ligne par ligne
         for i in range(1, len(automata)):
-            file_line = automata[i].split(" ")
+            file_line = automata[i].split(",")
             transitions = {}
             exit = False
             entry = False
 
-            # parcours caractère par caractère
+            state_in_states_list = False
+
+            # parcours du tableau de transition caractère par caractère
             for j in range(0, len(alphabet)):
-                next_states = []
-                # boucle for si plusieurs transitions pour une meme lettre
+                next_states_list = []
+
+                next_state_in_list = False
+
+                # boucle pour gérer si plusieurs états pour une même transition (non déterministe)
                 for letter in file_line[j+1]:
-                    next_states.append(letter)
-                transitions[alphabet[j]] = next_states
+                    next_state = State(letter)
+
+                    # vérification si l'état de transition est déjà renseigné dans l'automate
+                    for state in states_list:
+                        if state.id == letter:
+                            next_state = state
+                            next_state_in_list = True
+                    # si l'état de transition n'est pas renseigné dans la liste d'états, on le rajoute
+                    if next_state_in_list == False:
+                        next_state = State(letter)
+                        states_list.append(next_state)
+                    next_states_list.append(next_state)
+
+                transitions[alphabet[j]] = next_states_list
 
             # si l'état est une entrée/sortie
             if len(file_line) > len(alphabet)+1:
@@ -52,11 +69,21 @@ class Automata:
                         entry = True
 
             new_state = State(file_line[0], transitions, entry, exit)
-            states.append(new_state)
+
+            # vérification si l'état (colonne état) est dans la liste d'états de l'automate
+            for state in states_list:
+                if state.id == new_state.id:
+                    state.transition_dict = transitions
+                    state.exit = exit
+                    state.entry = entry
+                    state_in_states_list = True
+            if state_in_states_list == False:
+                print("ajout de l'état ", new_state.id)
+                states_list.append(new_state)
 
         # Creation automate
         self.alphabet = alphabet
-        self.states = states
+        self.states = states_list
 
 
     def display_automate(self):
