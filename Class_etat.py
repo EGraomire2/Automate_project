@@ -25,7 +25,8 @@ class Automata:
         file = open(f"automate_{automata_id}.txt", "r")
         automata = file.readlines()
         file.close()
-        alphabet = automata[0].split(",")
+        alphabet = automata[0].replace("\n", "")
+        alphabet = alphabet.split(",")
         states_list = []
 
         # parcours ligne par ligne
@@ -44,18 +45,24 @@ class Automata:
                 next_state_in_list = False
 
                 # boucle pour gérer si plusieurs états pour une même transition (non déterministe)
-                for letter in file_line[j+1]:
-                    next_state = State(letter)
+                for letter in file_line[j+1].replace("\n", ""):
+                    if letter == "-":
+                        next_state = State("")
+                    else :
+                        next_state = State(letter)
 
                     # vérification si l'état de transition est déjà renseigné dans l'automate
                     for state in states_list:
                         if state.id == letter:
                             next_state = state
                             next_state_in_list = True
+
                     # si l'état de transition n'est pas renseigné dans la liste d'états, on le rajoute
-                    if next_state_in_list == False:
+                    if next_state_in_list == False and next_state.id != "":
                         next_state = State(letter)
                         states_list.append(next_state)
+
+
                     next_states_list.append(next_state)
 
                 transitions[alphabet[j]] = next_states_list
