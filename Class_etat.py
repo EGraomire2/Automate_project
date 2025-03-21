@@ -189,6 +189,9 @@ class Automata:
 
 
     def determinate(self):
+        for state in self.states:
+            print(f"State : {state.id} - transitions en a : {state.transition_dict['a']}")
+
         groups = [] # tableau 2D des regroupements d'état
         new_states = []
         groups.append(self.regroup_entries()) # On ajoute le regroupement des entrées
@@ -208,13 +211,14 @@ class Automata:
             for letter in self.alphabet:
                 sub_group = [] # sous tableau stockant les etats que l'on souhaite regrouper
                 print("\nLettre :", letter)
+                print("Taille de groups : ", len(groups))
                 for state in groups[i]:
                     print("State : ", state.id)
                     for transition in state.transition_dict[letter]:
                         if transition not in sub_group:
                             sub_group.append(transition)
                 if sub_group not in groups and sub_group != []:
-                    print("On ajoute : subgroup")
+                    print("On ajoute un sub_group :", end="")
                     for l in sub_group:
                         print(l.id, end=" ")
                     groups.append(sub_group)
@@ -240,7 +244,7 @@ class Automata:
             for sub in groups:
                 print("")
                 for let in sub:
-                    print(let.id, end="")
+                    print(let.id, end=".")
 
             self.states = new_states
             self.determinated = True
@@ -317,6 +321,7 @@ class State:
         self.id = id
         self.transition_dict = transition # dictionaire de tableaux contenant tous les états vers lesquels il y a une transition
         #attribut : lettre de l'alphabet - clés : tableau d'etat
+        # S'il n'y a aucune transition pour une lettre alors attribué à la lettre le tableau vide ; exemple : self.transition_dict['a'] = []
 
         self.exit = exit
         self.entry = entry
