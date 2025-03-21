@@ -23,7 +23,7 @@ class Automata:
         :return:
         """
         # lecture du fichier
-        file = open(f"automate_{automata_id}.txt", "r")
+        file = open(f"Automates/automate_{automata_id}.txt", "r")
         automata = file.readlines()
         file.close()
         alphabet = automata[0].replace("\n", "")
@@ -105,7 +105,7 @@ class Automata:
             print("\n", end="")
 
             # affichage des entrées/sorties
-            if state.is_entry() and state.is_exit:
+            if state.is_entry() and state.is_exit():
                 print("E/S", end="")
             elif state.is_entry():
                 print("  E", end="")
@@ -253,6 +253,29 @@ class Automata:
             # On met à jour les groupes
             actual_group = next_group
             next_group = []
+
+    def complementary(self): #Retourne l'automate complémentaire de l'automate courant.
+
+        #On s'assure que l'automate est complet et déterministe :
+        if not self.determinated:
+            print("Automate non déterministe. Détermination en cours...")
+            self.determinate()
+
+        if not self.complete:
+            print("Automate non complet. Complétion en cours...")
+            self.complete_automate()
+
+        comp_automata = self
+
+        #On échange les sorties et non-sorties :
+        for i in range(len(comp_automata.states)):
+            if comp_automata.states[i].is_exit():
+                comp_automata.states[i].exit = False
+            else:
+                comp_automata.states[i].exit = True
+
+        return comp_automata
+
 
 class State:
     def __init__(self, id, transition={}, entry=False, exit=False):
