@@ -46,7 +46,7 @@ class Automata:
                 next_state_in_list = False
 
                 # boucle pour gérer si plusieurs états pour une même transition (non déterministe)
-                for letter in file_line[j+1].replace("\n", ""):
+                for letter in file_line[j+1].replace("\n", "").split("/"):
                     if letter == "-":
                         next_state = State("")
                     else :
@@ -63,8 +63,8 @@ class Automata:
                         next_state = State(letter)
                         states_list.append(next_state)
 
-
-                    next_states_list.append(next_state)
+                    if next_state.id != "":
+                        next_states_list.append(next_state)
 
                 transitions[alphabet[j]] = next_states_list
 
@@ -95,6 +95,8 @@ class Automata:
         # Creation automate
         self.alphabet = alphabet
         self.states = states_list
+
+
 
     def display_automate(self):
         # utilisation de la méthode ljust qui permet de faire un alignemetn
@@ -294,16 +296,22 @@ class Automata:
 
 
     def remove_epsilon(self):
+        if "e" not in self.alphabet:
+            return 0
         for state in self.states:
             print("nv tour")
-            if len(state.transition_dict["e"]) != 0:
+            if state.transition_dict["e"] != []:
                 for next_state_e in state.transition_dict["e"]:
-                    if next_state_e.id != "":
-                        print("etat : ", next_state_e.id)
-                        for letter in self.alphabet:
-                            print(state.transition_dict)
-                            for transition_next_state in next_state_e.transition_dict[letter]:
-                                state.transition_dict[letter].append(transition_next_state)
+                    if next_state_e.is_exit():
+                        state.exit = True
+                    if next_state_e.is_entry():
+                        state.entry = True
+
+                    print(state.id , "etat : ", next_state_e.id)
+                    for letter in self.alphabet:
+                        print(state.transition_dict)
+                        for transition_next_state in next_state_e.transition_dict[letter]:
+                            state.transition_dict[letter].append(transition_next_state)
         for state in self.states:
             del state.transition_dict["e"]
         self.alphabet.pop()
