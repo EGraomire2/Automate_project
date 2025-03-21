@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Automates/automate_4.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Automates/automate_31.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Automates/automate_32.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Automates/automate_6.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_#01.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_#01.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_#02.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_#02.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_#03.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_#03.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

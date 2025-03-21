@@ -41,7 +41,7 @@ def main():
     print(" ")'''
 
     Automate_0 = Automata()
-    Automate_0.read_automata("5")
+    Automate_0.read_automata("32")
     Automate_0.display_automate()
 
 # Press the green button in the gutter to run the script.
