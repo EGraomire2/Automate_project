@@ -32,6 +32,10 @@ def main():
     Automate_0.standardise()
     Automate_0.display_automate()
 
+    if Automate_0.know_word("abb"):
+        print("YESS")
+    else:
+        print("NO")
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
