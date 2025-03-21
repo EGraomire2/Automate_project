@@ -41,8 +41,12 @@ def main():
     print(" ")'''
 
     Automate_0 = Automata()
-    Automate_0.read_automata("32")
+    Automate_0.read_automata("31")
+    for state in Automate_0.states:
+        print(state.id, " : ", state.transition_dict)
+    Automate_0.remove_epsilon()
     Automate_0.display_automate()
+    Automate_0.determinate()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
