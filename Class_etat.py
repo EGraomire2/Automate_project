@@ -92,7 +92,7 @@ class Automata:
                 print("ajout de l'état ", new_state.id)
                 states_list.append(new_state)
 
-        # Creation automate
+        # Creation automateùj
         self.alphabet = alphabet
         self.states = states_list
 
