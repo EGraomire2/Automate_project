@@ -3,7 +3,7 @@ from Class_etat import *
 def main():
     print("Debut du programe")
 
-    state_0 = State(0, entry=True, exit=True)
+    '''state_0 = State(0, entry=True, exit=True)
     state_1 = State(1, entry=True)
     state_2 = State(2, exit=True)
 
@@ -38,9 +38,11 @@ def main():
 
     print(" ")
     print("Automate complémentaire : ")
-    print(" ")
+    print(" ")'''
 
-    Automate_0.complementary().display_automate()
+    Automate_0 = Automata()
+    Automate_0.read_automata("5")
+    Automate_0.display_automate()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
