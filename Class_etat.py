@@ -280,6 +280,25 @@ class Automata:
         return comp_automata
 
 
+    def remove_epsilon(self):
+        for state in self.states:
+            print("nv tour")
+            if len(state.transition_dict["e"]) != 0:
+                for next_state_e in state.transition_dict["e"]:
+                    if next_state_e.id != "":
+                        print("etat : ", next_state_e.id)
+                        for letter in self.alphabet:
+                            print(state.transition_dict)
+                            for transition_next_state in next_state_e.transition_dict[letter]:
+                                state.transition_dict[letter].append(transition_next_state)
+        for state in self.states:
+            del state.transition_dict["e"]
+        self.alphabet.pop()
+
+
+
+
+
 class State:
     def __init__(self, id, transition={}, entry=False, exit=False):
         self.id = id
