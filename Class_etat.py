@@ -96,32 +96,45 @@ class Automata:
         self.alphabet = alphabet
         self.states = states_list
 
-
     def display_automate(self):
-        print("\n\n   |  Etat  |\t", end="")
+        # utilisation de la méthode ljust qui permet de faire un alignemetn
+        if self.alphabet == ['']:
+            print("Pas d'alphabet")
+            return
+
+        col = 10
+        table_w = (col + 5) * (len(self.alphabet) + 1) + 1
+
+        print("\n\n\t  |\t\tEtat  ".ljust(col + 5), " |", end="")
+
         for letter in self.alphabet:
-            print(f"{letter}\t|\t", end="")
-        print("\n" + "-" * 29, end="")
+            print(f"    {letter}".ljust(col), "|", end="")
+        print()
+
+        print("-" * table_w)
 
         ######## affichage du tableau de transitions #######
         for state in self.states:
-            print("\n", end="")
-
             # affichage des entrées/sorties
-            if state.is_entry() and state.is_exit():
-                print("E/S", end="")
+            if state.is_entry() and state.is_exit:
+                print("E/S".ljust(5), end="")
             elif state.is_entry():
-                print("  E", end="")
+                print("  E".ljust(5), end="")
             elif state.is_exit():
-                print("  S", end="")
+                print("  S".ljust(5), end="")
             else:
-                print("   ", end="")
+                print("   ".ljust(5), end="")
 
-            print(f"|\t{state.id}\t|\t", end="")
-            for letter in self.alphabet: # pour chaque lettre de l'alphabet
-                for transition in state.transition_dict[letter]: # pour chaque transition associer à cette lettre de l'alphabet
-                    print(transition.id, " ", end="") # on affiche la transition dans la case du tableau
-                print("\t|\t", end="")
+            print(f" |\t     {state.id} ".ljust(col + 5), "|", end="")
+
+            for letter in self.alphabet:  # pour chaque lettre de l'alphabet
+                transitions = []
+
+                for transition in state.transition_dict[
+                    letter]:  # pour chaque transition associer à cette lettre de l'alphabet
+                    transitions.append(str(transition.id))
+                print(" ".join(transitions).center(col), "|", end="")
+            print()
 
     def complete_automate(self):
         bind = State("P")

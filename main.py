@@ -46,6 +46,7 @@ def main():
         print(state.id, " : ", state.transition_dict)
     Automate_0.remove_epsilon()
     Automate_0.display_automate()
+    Automate_0.determinate()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
