@@ -32,7 +32,7 @@ class Automata:
 
         # parcours ligne par ligne
         for i in range(1, len(automata)):
-            file_line = automata[i].split(",")
+            file_line = automata[i].replace("\n","").split(",")
             transitions = {}
             exit = False
             entry = False
@@ -68,8 +68,11 @@ class Automata:
 
                 transitions[alphabet[j]] = next_states_list
 
+            print(file_line)
             # si l'état est une entrée/sortie
-            if len(file_line) > len(alphabet)+1:
+            if len(file_line) > len(alphabet):
+
+                print("entrée/sortie pour l'id ")
                 for k in range(len(alphabet), len(file_line)):
                     if file_line[k] == "S":
                         exit = True
