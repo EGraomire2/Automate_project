@@ -1,5 +1,5 @@
 class Automata:
-    def __init__(self, states = [], alphabet=['a', 'b']):
+    def __init__(self, states = [], alphabet=[]):
         self.alphabet = alphabet # tableau des composantes de l'alphabet
         self.states = states # tableau contenant tout les etats de l'automate
         self.complete = False
@@ -28,6 +28,8 @@ class Automata:
         file.close()
         alphabet = automata[0].replace("\n", "")
         alphabet = alphabet.split(",")
+        if alphabet == ['']:
+            alphabet = []
         states_list = []
 
         # parcours ligne par ligne
@@ -93,6 +95,7 @@ class Automata:
                 states_list.append(new_state)
 
         # Creation automateùj
+        
         self.alphabet = alphabet
         self.states = states_list
 
@@ -100,9 +103,6 @@ class Automata:
 
     def display_automate(self):
         # utilisation de la méthode ljust qui permet de faire un alignemetn
-        if self.alphabet == ['']:
-            print("Pas d'alphabet")
-            return
 
         col = 10
         table_w = (col + 5) * (len(self.alphabet) + 1) + 1
@@ -191,6 +191,8 @@ class Automata:
 
 
     def determinate(self):
+        if self.alphabet == []:
+            return
         for state in self.states:
             print(f"State : {state.id} - transitions en a : {state.transition_dict['a']}")
 
@@ -253,6 +255,8 @@ class Automata:
 
 
     def minimize(self):
+        if self.alphabet == []:
+            return
         if not self.determinated:
             print("Automate non déterministe. Déterminisation en cours...")
             self.determinate()
