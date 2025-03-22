@@ -236,7 +236,7 @@ class Automata:
         output_lines = []
 
         # Étape 0: Vérification des prérequis
-        if self.alphabet == ['']:
+        if self.alphabet == []:
             output_lines.append("Alphabet vide, impossible de minimiser l'automate.")
             return self, {}, output_lines
 
