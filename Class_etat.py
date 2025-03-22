@@ -46,7 +46,7 @@ class Automata:
                 next_state_in_list = False
 
                 # boucle pour gérer si plusieurs états pour une même transition (non déterministe)
-                for letter in file_line[j+1].replace("\n", ""):
+                for letter in file_line[j+1].replace("\n", "").split("/"):
                     if letter == "-":
                         next_state = State("")
                     else :
@@ -63,8 +63,8 @@ class Automata:
                         next_state = State(letter)
                         states_list.append(next_state)
 
-
-                    next_states_list.append(next_state)
+                    if next_state.id != "":
+                        next_states_list.append(next_state)
 
                 transitions[alphabet[j]] = next_states_list
 
@@ -95,6 +95,8 @@ class Automata:
         # Creation automateùj
         self.alphabet = alphabet
         self.states = states_list
+
+
 
     def display_automate(self):
         # utilisation de la méthode ljust qui permet de faire un alignemetn
@@ -249,30 +251,153 @@ class Automata:
             self.states = new_states
             self.determinated = True
 
+
     def minimize(self):
-        final = []
-        not_final = []
-        for state in self.states:
-            if state.is_exit():
-                final.append(state)
-            else:
-                not_final.append(state)
+        if not self.determinated:
+            print("Automate non déterministe. Déterminisation en cours...")
+            self.determinate()
 
-        actual_group = [final, not_final]
-        next_group = []
-        while actual_group != next_group:
-            for sub_group in actual_group:
-                # On applique l'algorithme de minimisation à tout les états non_isolés
-                if len(sub_group >= 2):
+        if not self.complete:
+            print("Automate incomplet. Complétion en cours...")
+            self.complete_automate()
+
+        finals = [state for state in self.states if state.exit]
+        non_finals = [state for state in self.states if not state.exit]
+
+        partition_courante = {}
+        if finals:
+            partition_courante['T'] = finals
+        if non_finals:
+            partition_courante['NT'] = non_finals
+
+        print(f"\nPartition n°0 :")
+        for label, groupe in partition_courante.items():
+            print(f"{label} : {[state.id for state in groupe]}")
+
+        partition_suivante = None
+        iteration = 0
+        compteur_T = 1
+        compteur_NT = 1
+        correspondance_etats = {}
+
+        while partition_courante != partition_suivante:
+            iteration += 1
+
+            if iteration > 1:
+                partition_courante = partition_suivante.copy()
+
+            partition_suivante = {}
+            print(f"\nItération {iteration}:")
+
+            for label, groupe in partition_courante.items():
+                if len(groupe) == 1:
+                    partition_suivante[label] = groupe
+                    continue
+
+                signatures = {}
+
+                for etat in groupe:
+                    signature = []
+
                     for letter in self.alphabet:
-                        for state in sub_group:
-                            for i in range(len(actual_group)):
-                                if state in actual_group[i]:
-                                    pass # trouver une manière de diviser sub_group dans différents groupes
+                        etat_cible = etat.transition_dict[letter][0]
 
-            # On met à jour les groupes
-            actual_group = next_group
-            next_group = []
+                        label_cible = None
+                        for lbl, etats_partition in partition_courante.items():
+                            if etat_cible in etats_partition:
+                                label_cible = lbl
+                                break
+
+                        signature.append(label_cible)
+
+                    signature_tuple = tuple(signature)
+                    if signature_tuple not in signatures:
+                        signatures[signature_tuple] = []
+                    signatures[signature_tuple].append(etat)
+
+                if len(signatures) == 1:
+                    partition_suivante[label] = groupe
+                else:
+                    for signature_tuple, sous_groupe in signatures.items():
+                        est_terminal = any(state.exit for state in sous_groupe)
+
+                        if est_terminal:
+                            nouveau_label = f"T{compteur_T}"
+                            compteur_T += 1
+                        else:
+                            nouveau_label = f"NT{compteur_NT}"
+                            compteur_NT += 1
+
+                        partition_suivante[nouveau_label] = sous_groupe
+
+            print("Nouvelle partition:")
+            for label, groupe in partition_suivante.items():
+                print(f"{label} : {[state.id for state in groupe]}")
+
+            print("\nTransitions en termes de parties:")
+            for label, groupe in partition_suivante.items():
+                etat_representant = groupe[0]
+                print(f"Pour le groupe {label}:")
+                for letter in self.alphabet:
+                    etat_cible = etat_representant.transition_dict[letter][0]
+
+                    groupe_cible = None
+                    for lbl, grp in partition_suivante.items():
+                        if etat_cible in grp:
+                            groupe_cible = lbl
+                            break
+                    print(f"  {letter} -> {groupe_cible}")
+
+        if iteration == 1 and len(partition_suivante) == len(self.states):
+            print("\nAutomate déjà minimal.")
+            return self, correspondance_etats
+
+        print(f"\nAutomate minimal obtenu après {iteration} itérations")
+
+        automate_minimal = Automata(alphabet=self.alphabet.copy())
+        automate_minimal.complete = True
+        automate_minimal.determinated = True
+        automate_minimal.minimal = True
+
+        etats_minimaux = []
+        for label, groupe in partition_suivante.items():
+            est_terminal = any(state.exit for state in groupe)
+            est_initial = any(state.entry for state in groupe)
+
+            transitions_vides = {letter: [] for letter in self.alphabet}
+
+            nouvel_etat = State(label, transitions_vides, entry=est_initial, exit=est_terminal)
+            etats_minimaux.append(nouvel_etat)
+
+            correspondance_etats[label] = [state.id for state in groupe]
+
+        for nouvel_etat in etats_minimaux:
+            label = nouvel_etat.id
+            groupe = partition_suivante[label]
+            etat_representant = groupe[0]
+
+            for letter in self.alphabet:
+                etat_cible = etat_representant.transition_dict[letter][0]
+
+                label_cible = None
+                for lbl, groupe_cible in partition_suivante.items():
+                    if etat_cible in groupe_cible:
+                        label_cible = lbl
+                        break
+
+                # Utilisation d'une boucle standard au lieu de next()
+                nouvel_etat_cible = None
+                for etat in etats_minimaux:
+                    if etat.id == label_cible:
+                        nouvel_etat_cible = etat
+                        break
+
+                nouvel_etat.transition_dict[letter] = [nouvel_etat_cible]
+
+        automate_minimal.states = etats_minimaux
+
+        return automate_minimal, correspondance_etats
+
 
     def complementary(self): #Retourne l'automate complémentaire de l'automate courant.
 
@@ -298,16 +423,22 @@ class Automata:
 
 
     def remove_epsilon(self):
+        if "e" not in self.alphabet:
+            return 0
         for state in self.states:
             print("nv tour")
-            if len(state.transition_dict["e"]) != 0:
+            if state.transition_dict["e"] != []:
                 for next_state_e in state.transition_dict["e"]:
-                    if next_state_e.id != "":
-                        print("etat : ", next_state_e.id)
-                        for letter in self.alphabet:
-                            print(state.transition_dict)
-                            for transition_next_state in next_state_e.transition_dict[letter]:
-                                state.transition_dict[letter].append(transition_next_state)
+                    if next_state_e.is_exit():
+                        state.exit = True
+                    if next_state_e.is_entry():
+                        state.entry = True
+
+                    print(state.id , "etat : ", next_state_e.id)
+                    for letter in self.alphabet:
+                        print(state.transition_dict)
+                        for transition_next_state in next_state_e.transition_dict[letter]:
+                            state.transition_dict[letter].append(transition_next_state)
         for state in self.states:
             del state.transition_dict["e"]
         self.alphabet.pop()
