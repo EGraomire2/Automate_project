@@ -4,51 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="versions finales (j'espère) des fonctions read et remove epsilon">
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate10.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate11.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate12.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate13.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate14.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate15.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate16.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate17.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate18.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate19.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate20.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate21.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate22.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate23.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate24.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate25.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate26.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate27.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate28.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate29.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate30.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate31.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate32.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate33.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate34.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate35.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate36.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate37.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate38.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate39.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate4.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate40.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate41.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate42.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate43.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate44.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate5.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate6.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate7.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate8.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/traces/traceautomate9.txt" afterDir="false" />
+    <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="menu + tous les fichiers + fonctions tout tester">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Automates/automate_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_4.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Class_etat.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_etat.py" afterDir="false" />
@@ -212,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742677259257</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="menu + tous les fichiers + fonctions tout tester">
+      <option name="closed" value="true" />
+      <created>1742683436222</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1742683436222</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,10 +189,11 @@
     <MESSAGE value="ajout de la fonction remove_epsilon pour retirer les epsilons" />
     <MESSAGE value="ajout de la fonction remove epsilon + prise en compte des entrées sorties" />
     <MESSAGE value="versions finales (j'espère) des fonctions read et remove epsilon" />
-    <option name="LAST_COMMIT_MESSAGE" value="versions finales (j'espère) des fonctions read et remove epsilon" />
+    <MESSAGE value="menu + tous les fichiers + fonctions tout tester" />
+    <option name="LAST_COMMIT_MESSAGE" value="menu + tous les fichiers + fonctions tout tester" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Automate_project$Class_etat.coverage" NAME="Class_etat Coverage Results" MODIFIED="1742675043950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Automate_project$main.coverage" NAME="main Coverage Results" MODIFIED="1742683151151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Automate_project$main.coverage" NAME="main Coverage Results" MODIFIED="1742683802158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

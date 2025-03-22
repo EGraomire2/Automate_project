@@ -3,11 +3,7 @@ import copy
 from Class_etat import *
 
 
-def user_menu(auto_exists=False, user_automata=None):
-    # Initialiser l'automate si c'est la première fois
-    if user_automata is None:
-        user_automata = Automata()
-
+def user_menu(auto_exists=False):
     print("{+=================== MENU =====================+}")
     print("")
     print("Veuillez choisir une option :")
@@ -21,15 +17,15 @@ def user_menu(auto_exists=False, user_automata=None):
     print("\t7. Standardiser l'automate courant")
     print("\t8. Afficher le complémentaire de l'automate courant")
     print("\t9. Supprimer l'automate courant")
-    print("\t10. Afficher l'automate minimal et sa table de correspondance")
-    print("\t11. Quitter")
+    print("\t10. Quitter")
     print("")
     print("{+==============================================+}")
     print("")
 
+    user_automata = Automata()
     choix = input("Votre choix :")
-    while not choix.isdigit() or int(choix) < 1 or int(choix) > 11:
-        print("Choix invalide. Veuillez entrer un nombre entre 1 et 11.")
+    while not choix.isdigit() or int(choix) < 1 or int(choix) > 10:
+        print("Choix invalide. Veuillez entrer un nombre entre 1 et 10.")
         choix = input("Votre choix :")
 
     if choix == "1":
@@ -37,7 +33,7 @@ def user_menu(auto_exists=False, user_automata=None):
         print("")
         print("L'automate a été créé avec succès.")
         print("")
-        user_menu(True, user_automata)
+        user_menu(True)
 
     elif choix == "2":
         id_automate = input("Entrez l'id de l'automate à importer (1-44) :")
@@ -50,7 +46,7 @@ def user_menu(auto_exists=False, user_automata=None):
         print("")
         print("L'automate a été importé avec succès.")
         print("")
-        user_menu(True, user_automata)
+        user_menu(True)
 
     elif choix == "3":
         if auto_exists:
@@ -58,42 +54,25 @@ def user_menu(auto_exists=False, user_automata=None):
             print("")
             print("L'automate a été déterminisé avec succès.")
             print("")
-            user_menu(True, user_automata)
+            user_menu(True)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
             print("")
-            user_menu(False, user_automata)
+            user_menu()
 
     elif choix == "4":
         if auto_exists:
-            # Minimiser l'automate et récupérer les résultats
-            automate_minimal, correspondance, output_lines = user_automata.minimize()
-
-            # Afficher les étapes de minimisation
-            print("\n=== ÉTAPES DE MINIMISATION ===")
-            for line in output_lines:
-                print(line)
-
-            # Afficher l'automate minimal et sa table de correspondance
-            Automata.afficher_automate_minimal(automate_minimal, correspondance)
-
-            # Mettre à jour l'automate courant avec l'automate minimal
-            user_automata = automate_minimal
-
-            # Stocker la correspondance pour l'option 10
-            user_automata.correspondance_etats = correspondance
-            user_automata.minimal = True
-
+            user_automata.minimize()
             print("")
             print("L'automate a été minimisé avec succès.")
             print("")
-            user_menu(True, user_automata)
+            user_menu(True)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
             print("")
-            user_menu(False, user_automata)
+            user_menu()
 
     elif choix == "5":
         if auto_exists:
@@ -101,23 +80,23 @@ def user_menu(auto_exists=False, user_automata=None):
             print("")
             print("L'automate a été complété avec succès.")
             print("")
-            user_menu(True, user_automata)
+            user_menu(True)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
             print("")
-            user_menu(False, user_automata)
+            user_menu()
 
     elif choix == "6":
         if not auto_exists:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
             print("")
-            user_menu(False, user_automata)
+            user_menu()
         else:
-            # Cette fonction fait des prints directement
-            user_automata.display_automate()
-            user_menu(True, user_automata)
+            output = user_automata.display_automate()
+            print(output)
+            user_menu(True)
 
     elif choix == "7":
         if auto_exists:
@@ -125,67 +104,44 @@ def user_menu(auto_exists=False, user_automata=None):
             print("")
             print("L'automate a été standardisé avec succès.")
             print("")
-            user_menu(True, user_automata)
+            user_menu(True)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
             print("")
-            user_menu(False, user_automata)
+            user_menu()
 
     elif choix == "8":
         if auto_exists:
             print("")
             print("Complémentaire de l'automate courant :")
             print("")
-            # Cette fonction retourne un automate mais fait aussi des prints directs
-            user_automata.complementary().display_automate()
-            user_menu(True, user_automata)
+            output = user_automata.complementary().display_automate()
+            print(output)
+            user_menu(True)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
             print("")
-            user_menu(False, user_automata)
+            user_menu()
 
     elif choix == "9":
         if not auto_exists:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
             print("")
-            user_menu(False, user_automata)
+            user_menu()
         else:
             user_automata = Automata()
             print("")
             print("L'automate a été supprimé avec succès.")
             print("")
-            user_menu(False, user_automata)
+            user_menu()
 
     elif choix == "10":
-        if auto_exists and hasattr(user_automata, 'minimal') and user_automata.minimal and hasattr(user_automata,
-                                                                                                   'correspondance_etats'):
-            # L'automate est déjà minimal
-            Automata.afficher_automate_minimal(user_automata, user_automata.correspondance_etats)
-            user_menu(True, user_automata)
-        elif auto_exists:
-            print("L'automate doit d'abord être minimisé.")
-            # Minimisation suivie de l'affichage
-            automate_minimal, correspondance, _ = user_automata.minimize()
-            Automata.afficher_automate_minimal(automate_minimal, correspondance)
-
-            # Mettre à jour l'automate courant
-            user_automata = automate_minimal
-            user_automata.correspondance_etats = correspondance
-            user_automata.minimal = True
-
-            user_menu(True, user_automata)
-        else:
-            print("")
-            print("Aucun automate créé. Veuillez en créer un.")
-            print("")
-            user_menu(False, user_automata)
-
-    elif choix == "11":
-        print("Fin du programme.")
+        "Fin du programme."
         return
+
 
 
 
@@ -321,6 +277,7 @@ def main():
 
     create_trace_file()
 
+    user_menu()
 
 
 
