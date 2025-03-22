@@ -92,8 +92,12 @@ class Automata:
                 print("ajout de l'état ", new_state.id)
                 states_list.append(new_state)
 
+        if alphabet == ['']:
+            self.alphabet = []
+        else :
+            self.alphabet = alphabet
+
         # Creation automate
-        self.alphabet = alphabet
         self.states = states_list
 
 

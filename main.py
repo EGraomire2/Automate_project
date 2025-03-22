@@ -41,9 +41,10 @@ def main():
     print(" ")'''
 
     Automate_0 = Automata()
-    Automate_0.read_automata("31")
+    Automate_0.read_automata("1")
     for state in Automate_0.states:
         print(state.id, " : ", state.transition_dict)
+    print("alphabet de l'automate : ", Automate_0.alphabet)
     Automate_0.remove_epsilon()
     Automate_0.display_automate()
     Automate_0.determinate()
