@@ -191,8 +191,6 @@ class Automata:
 
 
     def determinate(self):
-        for state in self.states:
-            print(f"State : {state.id} - transitions en a : {state.transition_dict['a']}")
 
         groups = [] # tableau 2D des regroupements d'état
         new_states = []
