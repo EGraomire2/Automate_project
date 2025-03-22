@@ -41,7 +41,6 @@ class Automata:
             # si l'état est une entrée/sortie
             if len(file_line) > len(alphabet):
 
-                print("entrée/sortie pour l'id ")
                 for k in range(len(alphabet), len(file_line)):
                     if file_line[k] == "S":
                         exit = True
@@ -77,34 +76,35 @@ class Automata:
 
 
 
-
     def display_automate(self):
-        # utilisation de la méthode ljust qui permet de faire un alignemetn
+        # Initialisation de la variable de sortie
+        output = ""
 
+        # utilisation de la méthode ljust qui permet de faire un alignement
         col = 10
         table_w = (col + 5) * (len(self.alphabet) + 1) + 1
 
-        print("\n\n\t  |\t\tEtat  ".ljust(col + 5), " |", end="")
+        output += "\n\n\t  |\t\tEtat  ".ljust(col + 5) + " |"
 
         for letter in self.alphabet:
-            print(f"    {letter}".ljust(col), "|", end="")
-        print()
+            output += f"    {letter}".ljust(col) + "|"
+        output += "\n"
 
-        print("-" * table_w)
+        output += "-" * table_w + "\n"
 
         ######## affichage du tableau de transitions #######
         for state in self.states:
             # affichage des entrées/sorties
             if state.is_entry() and state.is_exit():
-                print("E/S".ljust(5), end="")
+                output += "E/S".ljust(5)
             elif state.is_entry():
-                print("  E".ljust(5), end="")
+                output += "  E".ljust(5)
             elif state.is_exit():
-                print("  S".ljust(5), end="")
+                output += "  S".ljust(5)
             else:
-                print("   ".ljust(5), end="")
+                output += "   ".ljust(5)
 
-            print(f" |\t     {state.id} ".ljust(col + 5), "|", end="")
+            output += f" |\t     {state.id} ".ljust(col + 5) + "|"
 
             for letter in self.alphabet:  # pour chaque lettre de l'alphabet
                 transitions = []
@@ -112,8 +112,13 @@ class Automata:
                 for transition in state.transition_dict[
                     letter]:  # pour chaque transition associer à cette lettre de l'alphabet
                     transitions.append(str(transition.id))
-                print(" ".join(transitions).center(col), "|", end="")
-            print()
+                output += " ".join(transitions).center(col) + "|"
+            output += "\n"
+
+        # Retourner la chaîne de caractères ou l'afficher selon le besoin
+        return output
+
+
 
     def complete_automate(self):
         bind = State("P")
@@ -420,15 +425,6 @@ class Automata:
 
 
     def complementary(self): #Retourne l'automate complémentaire de l'automate courant.
-
-        #On s'assure que l'automate est complet et déterministe :
-        if not self.determinated:
-            print("Automate non déterministe. Détermination en cours...")
-            self.determinate()
-
-        if not self.complete:
-            print("Automate non complet. Complétion en cours...")
-            self.complete_automate()
 
         comp_automata = self
 

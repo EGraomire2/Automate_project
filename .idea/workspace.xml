@@ -5,8 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="versions finales (j'espère) des fonctions read et remove epsilon">
-      <change beforePath="$PROJECT_DIR$/Automates/automate_25.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_25.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_26.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_26.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate10.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate11.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate12.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate13.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate14.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate15.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate16.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate17.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate18.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate19.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate20.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate21.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate22.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate23.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate24.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate25.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate26.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate27.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate28.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate29.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate30.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate31.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate32.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate33.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate34.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate35.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate36.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate37.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate38.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate39.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate40.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate41.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate42.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate43.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate44.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate6.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate7.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate8.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traces/traceautomate9.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Automates/automate_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_etat.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_etat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,12 +90,16 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2uXdiNYyisGYOmnZQwT2kpQ41DO" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Python.main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -170,6 +219,7 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="nouvelle version de la fonction de lecture de fichier automate.txt qui marche" />
     <MESSAGE value="nouvelle version de la fonction de lecture de fichier automate.txt qui marche vraiment cette fois" />
     <MESSAGE value="ajout de la fonction remove_epsilon pour retirer les epsilons" />
@@ -179,6 +229,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Automate_project$Class_etat.coverage" NAME="Class_etat Coverage Results" MODIFIED="1742675043950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Automate_project$main.coverage" NAME="main Coverage Results" MODIFIED="1742676434739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Automate_project$main.coverage" NAME="main Coverage Results" MODIFIED="1742683151151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
