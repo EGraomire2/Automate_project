@@ -141,11 +141,7 @@ def user_menu(auto_exists=False):
         return
 
 
-
-def main():
-    print("Debut du programe")
-
-
+def test_all_files():
     for i in range(1,45):
         print("\n\n===========================================")
         print(f"             AUTOMATE {i}                  ")
@@ -185,6 +181,14 @@ def main():
         #Automate_1.afficher_automate_minimal(Automate_1, Automate_0.minimize()[1])
         del Automate_0
         del Automate_1
+
+
+
+def main():
+    print("Debut du programe")
+
+    test_all_files()
+
 
 
 
