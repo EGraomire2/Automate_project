@@ -1,5 +1,5 @@
 class Automata:
-    def __init__(self, states = [], alphabet=['a', 'b']):
+    def __init__(self, states = [], alphabet=[]):
         self.alphabet = alphabet # tableau des composantes de l'alphabet
         self.states = states # tableau contenant tout les etats de l'automate
         self.complete = False
@@ -28,47 +28,16 @@ class Automata:
         file.close()
         alphabet = automata[0].replace("\n", "")
         alphabet = alphabet.split(",")
+        if alphabet == ['']:
+            alphabet = []
         states_list = []
 
         # parcours ligne par ligne
         for i in range(1, len(automata)):
             file_line = automata[i].replace("\n","").split(",")
-            transitions = {}
             exit = False
             entry = False
 
-            state_in_states_list = False
-
-            # parcours du tableau de transition caractère par caractère
-            for j in range(0, len(alphabet)):
-                next_states_list = []
-
-                next_state_in_list = False
-
-                # boucle pour gérer si plusieurs états pour une même transition (non déterministe)
-                for letter in file_line[j+1].replace("\n", "").split("/"):
-                    if letter == "-":
-                        next_state = State("")
-                    else :
-                        next_state = State(letter)
-
-                    # vérification si l'état de transition est déjà renseigné dans l'automate
-                    for state in states_list:
-                        if state.id == letter:
-                            next_state = state
-                            next_state_in_list = True
-
-                    # si l'état de transition n'est pas renseigné dans la liste d'états, on le rajoute
-                    if next_state_in_list == False and next_state.id != "":
-                        next_state = State(letter)
-                        states_list.append(next_state)
-
-                    if next_state.id != "":
-                        next_states_list.append(next_state)
-
-                transitions[alphabet[j]] = next_states_list
-
-            print(file_line)
             # si l'état est une entrée/sortie
             if len(file_line) > len(alphabet):
 
@@ -79,30 +48,38 @@ class Automata:
                     elif file_line[k] == "E":
                         entry = True
 
-            new_state = State(file_line[0], transitions, entry, exit)
+            new_state = State(file_line[0], {}, entry, exit)
 
-            # vérification si l'état (colonne état) est dans la liste d'états de l'automate
-            for state in states_list:
-                if state.id == new_state.id:
-                    state.transition_dict = transitions
-                    state.exit = exit
-                    state.entry = entry
-                    state_in_states_list = True
-            if state_in_states_list == False:
-                print("ajout de l'état ", new_state.id)
-                states_list.append(new_state)
+            states_list.append(new_state)
 
-        # Creation automate
+        # Creation automateùj
         self.alphabet = alphabet
         self.states = states_list
+
+        for i in range(1,len(automata)):
+            transition = {}
+            file_line = automata[i].replace("\n", "").split(",")
+
+            # remplissage des transitions
+            for j in range(1,len(alphabet)+1):
+                next_states_id_list = file_line[j].split("/")
+
+                transition[alphabet[j-1]] = []
+
+                # ajout de l'objet état stocké dans la liste d'états à la transition de l'état courant
+                for next_state_id in next_states_id_list:
+                    for state_object in self.states:
+                        if next_state_id == state_object.id:
+                            transition[alphabet[j-1]].append(state_object)
+
+            # ajout de la transition à l'état courant
+            self.states[i-1].transition_dict = transition
+
 
 
 
     def display_automate(self):
         # utilisation de la méthode ljust qui permet de faire un alignemetn
-        if self.alphabet == ['']:
-            print("Pas d'alphabet")
-            return
 
         col = 10
         table_w = (col + 5) * (len(self.alphabet) + 1) + 1
@@ -118,7 +95,7 @@ class Automata:
         ######## affichage du tableau de transitions #######
         for state in self.states:
             # affichage des entrées/sorties
-            if state.is_entry() and state.is_exit:
+            if state.is_entry() and state.is_exit():
                 print("E/S".ljust(5), end="")
             elif state.is_entry():
                 print("  E".ljust(5), end="")
@@ -191,66 +168,68 @@ class Automata:
 
 
     def determinate(self):
-        if not self.alphabet:
-            print("Alphabet vide, impossible de déterminiser")
-            return
-
-        groups = [] # tableau 2D des regroupements d'état
-        new_states = []
-        groups.append(self.regroup_entries()) # On ajoute le regroupement des entrées
-        new_entry = State(0, entry=True)
-        new_states.append(new_entry)
-        i = 0
-
-        # On parcourt l'ensemble des regroupements d'états jusqu'à les avoir tous traités
-        while i < len(groups):
-            print(i)
-            for state in groups[i]:
-                if state.is_exit():
-                    new_states[i].exit = True
-
-            new_state_transitions = {}
-
-            for letter in self.alphabet:
-                sub_group = [] # sous tableau stockant les etats que l'on souhaite regrouper
-                print("\nLettre :", letter)
-                print("Taille de groups : ", len(groups))
-                for state in groups[i]:
-                    print("State : ", state.id)
-                    for transition in state.transition_dict[letter]:
-                        if transition not in sub_group:
-                            sub_group.append(transition)
-                if sub_group not in groups and sub_group != []:
-                    print("On ajoute un sub_group :", end="")
-                    for l in sub_group:
-                        print(l.id, end=" ")
-                    groups.append(sub_group)
-                    new_states.append(State(len(groups) - 1))
-                    new_state_transitions[letter] = [new_states[len(new_states) - 1]]
-                elif sub_group != []:
-                    j=0
-                    while groups[j] != sub_group:
-                        j+=1
-                    new_state_transitions[letter] = [new_states[j]]
-                else:
-                    new_state_transitions[letter] = []
-
-            new_states[i].add_transition_dict(new_state_transitions)
-
-            i += 1
-            if i > 100: # On limite l'automate standart à 100 états maximum
-                print("Fatal Error : Infinite Loop")
+        if not self.determinated:
+            if self.alphabet == []:
                 return
+            for state in self.states:
+                print(f"State : {state.id} - transitions en a : {state.transition_dict['a']}")
 
-            # Display subgroups :
-            print("\n\n")
-            for sub in groups:
-                print("")
-                for let in sub:
-                    print(let.id, end=".")
+            groups = [] # tableau 2D des regroupements d'état
+            new_states = []
+            groups.append(self.regroup_entries()) # On ajoute le regroupement des entrées
+            new_entry = State(0, entry=True)
+            new_states.append(new_entry)
+            i = 0
 
-            self.states = new_states
-            self.determinated = True
+            # On parcourt l'ensemble des regroupements d'états jusqu'à les avoir tous traités
+            while i < len(groups):
+                print(i)
+                for state in groups[i]:
+                    if state.is_exit():
+                        new_states[i].exit = True
+
+                new_state_transitions = {}
+
+                for letter in self.alphabet:
+                    sub_group = [] # sous tableau stockant les etats que l'on souhaite regrouper
+                    print("\nLettre :", letter)
+                    print("Taille de groups : ", len(groups))
+                    for state in groups[i]:
+                        print("State : ", state.id)
+                        for transition in state.transition_dict[letter]:
+                            if transition not in sub_group:
+                                sub_group.append(transition)
+                    if sub_group not in groups and sub_group != []:
+                        print("On ajoute un sub_group :", end="")
+                        for l in sub_group:
+                            print(l.id, end=" ")
+                        groups.append(sub_group)
+                        new_states.append(State(len(groups) - 1))
+                        new_state_transitions[letter] = [new_states[len(new_states) - 1]]
+                    elif sub_group != []:
+                        j=0
+                        while groups[j] != sub_group:
+                            j+=1
+                        new_state_transitions[letter] = [new_states[j]]
+                    else:
+                        new_state_transitions[letter] = []
+
+                new_states[i].add_transition_dict(new_state_transitions)
+
+                i += 1
+                if i > 100: # On limite l'automate standart à 100 états maximum
+                    print("Fatal Error : Infinite Loop")
+                    return
+
+                # Display subgroups :
+                print("\n\n")
+                for sub in groups:
+                    print("")
+                    for let in sub:
+                        print(let.id, end=".")
+
+                self.states = new_states
+                self.determinated = True
 
     def minimize(self):
         # Liste pour stocker les messages d'affichage
@@ -420,17 +399,16 @@ class Automata:
         return automate_minimal, correspondance_etats, output_lines
 
     @staticmethod
-    def afficher_automate_minimal(afdcm, correspondance_etats):
+    def afficher_automate_minimal(AFDCM, correspondance_etats):
         """
         Affiche l'automate minimal et sa table de correspondance.
 
         Args:
             AFDCM: L'automate minimal obtenu après minimisation
             correspondance_etats: Dictionnaire mappant les états minimaux aux états originaux
-            :param afdcm:
         """
         print("\n=== AUTOMATE MINIMAL ===")
-        afdcm.display_automate()
+        AFDCM.display_automate()
 
         print("\n=== TABLE DE CORRESPONDANCE ===")
         print("État minimal(nouveau)-> États originaux (anciens) ")
@@ -476,13 +454,17 @@ class Automata:
                     if next_state_e.is_entry():
                         state.entry = True
 
-                    print(state.id , "etat : ", next_state_e.id)
+
                     for letter in self.alphabet:
-                        print(state.transition_dict)
                         for transition_next_state in next_state_e.transition_dict[letter]:
                             state.transition_dict[letter].append(transition_next_state)
+
+        print("\n\n>>> liste états apres remove epsilon :")
         for state in self.states:
-            del state.transition_dict["e"]
+            print(state.id, "ref @ ", state, "->", state.transition_dict)
+        for state in self.states:
+            if "e" in state.transition_dict:
+                del state.transition_dict["e"]
         self.alphabet.pop()
 
 

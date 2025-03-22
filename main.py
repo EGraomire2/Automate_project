@@ -40,13 +40,51 @@ def main():
     print("Automate complémentaire : ")
     print(" ")'''
 
-    Automate_0 = Automata()
-    Automate_0.read_automata("32")
-    for state in Automate_0.states:
-        print(state.id, " : ", state.transition_dict)
-    Automate_0.determinate()
-    Automate_0.display_automate()
 
+
+    for i in range(1,21):
+        print("\n\n===========================================")
+        print(f"             AUTOMATE {i}                  ")
+        print("===========================================\n\n")
+        Automate_0 = Automata()
+        Automate_0.read_automata(f'{i}')
+        print("\n\n___________________________________")
+        for state in Automate_0.states:
+            print(">>> affichage de l'état : ", state.id, " ref @ ", state, " -> ", state.transition_dict)
+            print("\t is exit : ", state.is_exit())
+            print("\t is entry : ", state.is_entry())
+        print("\n\n___________________________________\n\n")
+
+        print(">>> REMOVE EPSILON")
+        Automate_0.remove_epsilon()
+        Automate_0.display_automate()
+
+        print("\n\n___________________________________")
+        for state in Automate_0.states:
+            print(">>> affichage de l'état : ", state.id, " ref @ ", state, " -> ", state.transition_dict)
+            print("\t is exit : ", state.is_exit())
+            print("\t is entry : ", state.is_entry())
+        print("\n\n___________________________________\n\n")
+
+        print(">>> DETERMINIZE")
+        Automate_0.determinate()
+        Automate_0.display_automate()
+
+        print(">>> COMPLETE")
+        Automate_0.complete_automate()
+        Automate_0.display_automate()
+
+        print(">>> MINIMIZE")
+        Automate_1 = Automata()
+        Automate_1 = Automate_0.minimize()[0]
+        Automate_1.display_automate()
+        #Automate_1.afficher_automate_minimal(Automate_1, Automate_0.minimize()[1])
+        del Automate_0
+        del Automate_1
+
+    '''Automate_0 = Automata()
+    Automate_0.read_automata("7")
+    Automate_0.display_automate()'''
 
 
 # Press the green button in the gutter to run the script.
