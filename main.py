@@ -8,6 +8,7 @@ def test_automata(automata_id):
 
     automate_0 = Automata()
     automate_0.read_automata(automata_id)
+    automate_0.remove_epsilon()
 
     print("------------------------------------------")
     print("\tAffichage de l'automate initial :\t")
@@ -82,6 +83,7 @@ def user_menu(auto_exists=False):
             id_automate = input("Votre choix :")
         user_automata = Automata()
         user_automata.read_automata(id_automate)
+        user_automata.remove_epsilon()
         print("")
         print("L'automate a été importé avec succès.")
         print("")

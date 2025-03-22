@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="ajout de la fonction remove epsilon + prise en compte des entrées sorties">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_32.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_32.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_etat.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_etat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="ajout de la fonction remove epsilon + prise en compte des entrées sorties" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
