@@ -70,11 +70,9 @@ class Automata:
 
                 transitions[alphabet[j]] = next_states_list
 
-            print(file_line)
             # si l'état est une entrée/sortie
             if len(file_line) > len(alphabet):
 
-                print("entrée/sortie pour l'id ")
                 for k in range(len(alphabet), len(file_line)):
                     if file_line[k] == "S":
                         exit = True
@@ -91,7 +89,6 @@ class Automata:
                     state.entry = entry
                     state_in_states_list = True
             if state_in_states_list == False:
-                print("ajout de l'état ", new_state.id)
                 states_list.append(new_state)
 
         # Creation automateùj
@@ -137,6 +134,7 @@ class Automata:
                     transitions.append(str(transition.id))
                 print(" ".join(transitions).center(col), "|", end="")
             print()
+        print("")
 
     def complete_automate(self):
         bind = State("P")
@@ -193,9 +191,6 @@ class Automata:
     def determinate(self):
         if self.alphabet == []:
             return
-        for state in self.states:
-            print(f"State : {state.id} - transitions en a : {state.transition_dict['a']}")
-
         groups = [] # tableau 2D des regroupements d'état
         new_states = []
         groups.append(self.regroup_entries()) # On ajoute le regroupement des entrées
@@ -205,7 +200,6 @@ class Automata:
 
         # On parcourt l'ensemble des regroupements d'états jusqu'à les avoir tous traités
         while i < len(groups):
-            print(i)
             for state in groups[i]:
                 if state.is_exit():
                     new_states[i].exit = True
@@ -214,17 +208,11 @@ class Automata:
 
             for letter in self.alphabet:
                 sub_group = [] # sous tableau stockant les etats que l'on souhaite regrouper
-                print("\nLettre :", letter)
-                print("Taille de groups : ", len(groups))
                 for state in groups[i]:
-                    print("State : ", state.id)
                     for transition in state.transition_dict[letter]:
                         if transition not in sub_group:
                             sub_group.append(transition)
                 if sub_group not in groups and sub_group != []:
-                    print("On ajoute un sub_group :", end="")
-                    for l in sub_group:
-                        print(l.id, end=" ")
                     groups.append(sub_group)
                     new_states.append(State(len(groups) - 1))
                     new_state_transitions[letter] = [new_states[len(new_states) - 1]]
@@ -242,13 +230,6 @@ class Automata:
             if i > 100: # On limite l'automate standart à 100 états maximum
                 print("Fatal Error : Infinite Loop")
                 return
-
-            # Display subgroups :
-            print("\n\n")
-            for sub in groups:
-                print("")
-                for let in sub:
-                    print(let.id, end=".")
 
             self.states = new_states
             self.determinated = True
@@ -430,7 +411,6 @@ class Automata:
         if "e" not in self.alphabet:
             return 0
         for state in self.states:
-            print("nv tour")
             if state.transition_dict["e"] != []:
                 for next_state_e in state.transition_dict["e"]:
                     if next_state_e.is_exit():
@@ -438,9 +418,7 @@ class Automata:
                     if next_state_e.is_entry():
                         state.entry = True
 
-                    print(state.id , "etat : ", next_state_e.id)
                     for letter in self.alphabet:
-                        print(state.transition_dict)
                         for transition_next_state in next_state_e.transition_dict[letter]:
                             state.transition_dict[letter].append(transition_next_state)
         for state in self.states:

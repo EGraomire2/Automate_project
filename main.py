@@ -1,58 +1,187 @@
 from Class_etat import *
 
+def test_automata(automata_id):
+
+    print("===================================")
+    print("\t Etude de l'Automate "+automata_id+" : \t")
+    print("===================================")
+
+    automate_0 = Automata()
+    automate_0.read_automata(automata_id)
+
+    print("------------------------------------------")
+    print("\tAffichage de l'automate initial :\t")
+    print("------------------------------------------")
+
+    automate_0.display_automate()
+
+    if automate_0.complete:
+        print("L'automate est complet.")
+    else:
+
+        print("\tComplétion de l'automate :")
+        print("----------------------------------------")
+        automate_0.complete_automate()
+        print("----------------------------------------")
+        print("\tL'automate est complété, affichage : ")
+        automate_0.display_automate()
+
+    if automate_0.determinated :
+        print("\tL'automate est déterministe.")
+    else:
+        print("\tDéterminisation de l'automate :")
+        print("----------------------------------------")
+        automate_0.determinate()
+        print("----------------------------------------")
+        print("\tL'automate est déterminisé, affichage : ")
+        automate_0.display_automate()
+
+    print("\tMinimisation de l'automate :")
+    print("----------------------------------------")
+    automate_0.minimize()
+    print("----------------------------------------")
+    print("\tL'automate est minimisé, affichage :")
+    automate_0.display_automate()
+
+def user_menu(auto_exists=False):
+    print("{+=================== MENU =====================+}")
+    print("")
+    print("Veuillez choisir une option :")
+    print("")
+    print("\t1. Créer un automate vide")
+    print("\t2. Importer un automate")
+    print("\t3. Déterminiser l'automate courant")
+    print("\t4. Minimiser l'automate courant")
+    print("\t5. Compléter l'automate courant")
+    print("\t6. Afficher l'automate courant")
+    print("\t7. Standardiser l'automate courant")
+    print("\t8. Afficher le complémentaire de l'automate courant")
+    print("\t9. Supprimer l'automate courant")
+    print("\t10. Quitter")
+    print("")
+    print("{+==============================================+}")
+    print("")
+
+    user_automata = Automata()
+    choix = input("Votre choix :")
+    while not choix.isdigit() or int(choix) < 1 or int(choix) > 10:
+        print("Choix invalide. Veuillez entrer un nombre entre 1 et 10.")
+        choix = input("Votre choix :")
+
+    if choix == "1":
+        auto_exists = True
+        print("")
+        print("L'automate a été créé avec succès.")
+        print("")
+        user_menu(True)
+
+    elif choix == "2":
+        id_automate = input("Entrez l'id de l'automate à importer (1-44) :")
+        while not id_automate.isdigit() or int(id_automate) < 1 or int(id_automate) > 44:
+            print("Choix invalide. Veuillez entrer un nombre entre 1 et 44.")
+            id_automate = input("Votre choix :")
+        user_automata = Automata()
+        user_automata.read_automata(id_automate)
+        print("")
+        print("L'automate a été importé avec succès.")
+        print("")
+        user_menu(True)
+
+    elif choix == "3":
+        if auto_exists:
+            user_automata.determinate()
+            print("")
+            print("L'automate a été déterminisé avec succès.")
+            print("")
+            user_menu(True)
+        else:
+            print("")
+            print("Aucun automate créé. Veuillez en créer un.")
+            print("")
+            user_menu()
+
+    elif choix == "4":
+        if auto_exists:
+            user_automata.minimize()
+            print("")
+            print("L'automate a été minimisé avec succès.")
+            print("")
+            user_menu(True)
+        else:
+            print("")
+            print("Aucun automate créé. Veuillez en créer un.")
+            print("")
+            user_menu()
+
+    elif choix == "5":
+        if auto_exists:
+            user_automata.complete_automate()
+            print("")
+            print("L'automate a été complété avec succès.")
+            print("")
+            user_menu(True)
+        else:
+            print("")
+            print("Aucun automate créé. Veuillez en créer un.")
+            print("")
+            user_menu()
+
+    elif choix == "6":
+        if not auto_exists:
+            print("")
+            print("Aucun automate créé. Veuillez en créer un.")
+            print("")
+            user_menu()
+        else:
+            user_automata.display_automate()
+            user_menu(True)
+
+    elif choix == "7":
+        if auto_exists:
+            user_automata.standardise()
+            print("")
+            print("L'automate a été standardisé avec succès.")
+            print("")
+            user_menu(True)
+        else:
+            print("")
+            print("Aucun automate créé. Veuillez en créer un.")
+            print("")
+            user_menu()
+
+    elif choix == "8":
+        if auto_exists:
+            print("")
+            print("Complémentaire de l'automate courant :")
+            print("")
+            user_automata.complementary().display_automate()
+            user_menu(True)
+        else:
+            print("")
+            print("Aucun automate créé. Veuillez en créer un.")
+            print("")
+            user_menu()
+
+    elif choix == "9":
+        if not auto_exists:
+            print("")
+            print("Aucun automate créé. Veuillez en créer un.")
+            print("")
+            user_menu()
+        else:
+            user_automata = Automata()
+            print("")
+            print("L'automate a été supprimé avec succès.")
+            print("")
+            user_menu()
+
+    elif choix == "10":
+        "Fin du programme."
+        return
+
 def main():
-    print("Debut du programe")
-
-    '''state_0 = State(0, entry=True, exit=True)
-    state_1 = State(1, entry=True)
-    state_2 = State(2, exit=True)
-
-    transition_0 = {"a" : [],
-                    "b" : [state_1, state_2]}
-
-    transition_1 = {"a": [state_0, state_2],
-                    "b": [state_2]}
-
-    transition_2 = {"a": [state_0],
-                    "b": []}
-
-    state_0.add_transition_dict(transition_0)
-    state_1.add_transition_dict(transition_1)
-    state_2.add_transition_dict(transition_2)
-
-    Automate_0 = Automata([state_0, state_1, state_2])
-    Automate_0.display_automate()
-
-    Automate_0.determinate()
-    Automate_0.display_automate()
-
-    Automate_0.complete_automate()
-    Automate_0.display_automate()
-
-    print(" ")
-    print("Automate initial : ")
-    print(" ")
-
-    Automate_0.standardise()
-    Automate_0.display_automate()
-
-    print(" ")
-    print("Automate complémentaire : ")
-    print(" ")'''
-
-    Automate_0 = Automata()
-    Automate_0.read_automata("1")
-    for state in Automate_0.states:
-        print(state.id, " : ", state.transition_dict)
-    Automate_0.display_automate()
-    Automate_0.determinate()
-    Automate_0.display_automate()
-    Automate_0.complete_automate()
-    Automate_0.display_automate()
-
-
+    user_menu()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
-

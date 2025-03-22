@@ -5,32 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="ajout de la fonction remove epsilon + prise en compte des entrées sorties">
-      <change afterPath="$PROJECT_DIR$/Automates/automate_22.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_23.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_24.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_25.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_26.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_27.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_28.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_29.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_30.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_33.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_34.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_35.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_36.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_37.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_38.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_39.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_40.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_41.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Automates/automate_42.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_10.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_13.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_13.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_15.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_15.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_19.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_19.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_20.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_21.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_21.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Automates/automate_32.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_32.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Class_etat.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_etat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,32 +43,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Sidney",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "coverage",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Sidney&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;coverage&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="SDK_NAME" value="Python 3.9" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
