@@ -28,6 +28,8 @@ class Automata:
         file.close()
         alphabet = automata[0].replace("\n", "")
         alphabet = alphabet.split(",")
+        if alphabet == ['']:
+            alphabet = []
         states_list = []
 
         # parcours ligne par ligne
@@ -93,6 +95,7 @@ class Automata:
                 states_list.append(new_state)
 
         # Creation automateùj
+        
         self.alphabet = alphabet
         self.states = states_list
 
