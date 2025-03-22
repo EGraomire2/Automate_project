@@ -92,7 +92,7 @@ class Automata:
                 print("ajout de l'état ", new_state.id)
                 states_list.append(new_state)
 
-        # Creation automateùj
+        # Creation automate
         self.alphabet = alphabet
         self.states = states_list
 
@@ -191,6 +191,9 @@ class Automata:
 
 
     def determinate(self):
+        if not self.alphabet:
+            print("Alphabet vide, impossible de déterminiser")
+            return
 
         groups = [] # tableau 2D des regroupements d'état
         new_states = []
@@ -249,16 +252,24 @@ class Automata:
             self.states = new_states
             self.determinated = True
 
-
     def minimize(self):
+        # Liste pour stocker les messages d'affichage
+        output_lines = []
+
+        # Étape 0: Vérification des prérequis
+        if self.alphabet == ['']:
+            output_lines.append("Alphabet vide, impossible de minimiser l'automate.")
+            return self, {}, output_lines
+
         if not self.determinated:
-            print("Automate non déterministe. Déterminisation en cours...")
+            output_lines.append("Automate non déterministe. Déterminisation en cours...")
             self.determinate()
 
         if not self.complete:
-            print("Automate incomplet. Complétion en cours...")
+            output_lines.append("Automate incomplet. Complétion en cours...")
             self.complete_automate()
 
+        # Étape 1: Création de la partition initiale T/NT
         finals = [state for state in self.states if state.exit]
         non_finals = [state for state in self.states if not state.exit]
 
@@ -268,16 +279,18 @@ class Automata:
         if non_finals:
             partition_courante['NT'] = non_finals
 
-        print(f"\nPartition n°0 :")
+        output_lines.append(f"\nDébut minimisation : Partition n°0 :")
         for label, groupe in partition_courante.items():
-            print(f"{label} : {[state.id for state in groupe]}")
+            output_lines.append(f"{label} : {[state.id for state in groupe]}")
 
+        # Étape 2: Initialisation pour l'algorithme de raffinement
         partition_suivante = None
         iteration = 0
         compteur_T = 1
         compteur_NT = 1
         correspondance_etats = {}
 
+        # Étape 3: Raffinement itératif des partitions
         while partition_courante != partition_suivante:
             iteration += 1
 
@@ -285,15 +298,18 @@ class Automata:
                 partition_courante = partition_suivante.copy()
 
             partition_suivante = {}
-            print(f"\nItération {iteration}:")
+            output_lines.append(f"\nItération {iteration}:")
 
+            # Pour chaque groupe de la partition courante
             for label, groupe in partition_courante.items():
+                # Optimisation: les groupes isolés (un seul état) sont déjà minimaux
                 if len(groupe) == 1:
                     partition_suivante[label] = groupe
                     continue
 
                 signatures = {}
 
+                # Calcul des signatures pour chaque état du groupe
                 for etat in groupe:
                     signature = []
 
@@ -308,11 +324,13 @@ class Automata:
 
                         signature.append(label_cible)
 
+                    # Regroupement des états par signature
                     signature_tuple = tuple(signature)
                     if signature_tuple not in signatures:
                         signatures[signature_tuple] = []
                     signatures[signature_tuple].append(etat)
 
+                # Création des nouveaux groupes selon les signatures
                 if len(signatures) == 1:
                     partition_suivante[label] = groupe
                 else:
@@ -328,14 +346,16 @@ class Automata:
 
                         partition_suivante[nouveau_label] = sous_groupe
 
-            print("Nouvelle partition:")
+            # Affichage de la nouvelle partition
+            output_lines.append("Nouvelle partition:")
             for label, groupe in partition_suivante.items():
-                print(f"{label} : {[state.id for state in groupe]}")
+                output_lines.append(f"{label} : {[state.id for state in groupe]}")
 
-            print("\nTransitions en termes de parties:")
+            # Affichage des transitions entre groupes
+            output_lines.append("\nTransitions en termes de parties:")
             for label, groupe in partition_suivante.items():
                 etat_representant = groupe[0]
-                print(f"Pour le groupe {label}:")
+                output_lines.append(f"Pour le groupe {label}:")
                 for letter in self.alphabet:
                     etat_cible = etat_representant.transition_dict[letter][0]
 
@@ -344,19 +364,22 @@ class Automata:
                         if etat_cible in grp:
                             groupe_cible = lbl
                             break
-                    print(f"  {letter} -> {groupe_cible}")
+                    output_lines.append(f"  {letter} -> {groupe_cible}")
 
+        # Étape 4: Vérification si l'automate était déjà minimal
         if iteration == 1 and len(partition_suivante) == len(self.states):
-            print("\nAutomate déjà minimal.")
-            return self, correspondance_etats
+            output_lines.append("\nAutomate déjà minimal.")
+            return self, correspondance_etats, output_lines
 
-        print(f"\nAutomate minimal obtenu après {iteration} itérations")
+        output_lines.append(f"\nAutomate minimal obtenu après {iteration} itérations")
 
+        # Étape 5: Construction de l'automate minimal
         automate_minimal = Automata(alphabet=self.alphabet.copy())
         automate_minimal.complete = True
         automate_minimal.determinated = True
         automate_minimal.minimal = True
 
+        # Création des nouveaux états
         etats_minimaux = []
         for label, groupe in partition_suivante.items():
             est_terminal = any(state.exit for state in groupe)
@@ -369,6 +392,7 @@ class Automata:
 
             correspondance_etats[label] = [state.id for state in groupe]
 
+        # Définition des transitions entre nouveaux états
         for nouvel_etat in etats_minimaux:
             label = nouvel_etat.id
             groupe = partition_suivante[label]
@@ -383,7 +407,6 @@ class Automata:
                         label_cible = lbl
                         break
 
-                # Utilisation d'une boucle standard au lieu de next()
                 nouvel_etat_cible = None
                 for etat in etats_minimaux:
                     if etat.id == label_cible:
@@ -394,7 +417,28 @@ class Automata:
 
         automate_minimal.states = etats_minimaux
 
-        return automate_minimal, correspondance_etats
+        return automate_minimal, correspondance_etats, output_lines
+
+    @staticmethod
+    def afficher_automate_minimal(afdcm, correspondance_etats):
+        """
+        Affiche l'automate minimal et sa table de correspondance.
+
+        Args:
+            AFDCM: L'automate minimal obtenu après minimisation
+            correspondance_etats: Dictionnaire mappant les états minimaux aux états originaux
+            :param afdcm:
+        """
+        print("\n=== AUTOMATE MINIMAL ===")
+        afdcm.display_automate()
+
+        print("\n=== TABLE DE CORRESPONDANCE ===")
+        print("État minimal(nouveau)-> États originaux (anciens) ")
+        print("-" * 40)
+
+        for etat_minimal, etats_originaux in correspondance_etats.items():
+            etats_str = " - ".join(etats_originaux)
+            print(f"{etat_minimal} -> {etats_str}")
 
 
     def complementary(self): #Retourne l'automate complémentaire de l'automate courant.
