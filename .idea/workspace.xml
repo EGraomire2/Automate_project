@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="versions finales (j'espère) des fonctions read et remove epsilon">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_20.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_21.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_32.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_32.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automates/automate_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Class_etat.py" beforeDir="false" afterPath="$PROJECT_DIR$/Class_etat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="versions finales (j'espère) des fonctions read et remove epsilon" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742676131906</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="versions finales (j'espère) des fonctions read et remove epsilon">
+      <option name="closed" value="true" />
+      <created>1742676473942</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742676473942</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,6 +147,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Automate_project$Class_etat.coverage" NAME="Class_etat Coverage Results" MODIFIED="1742675043950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Automate_project$main.coverage" NAME="main Coverage Results" MODIFIED="1742676041419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Automate_project$main.coverage" NAME="main Coverage Results" MODIFIED="1742676434739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
