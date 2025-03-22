@@ -78,6 +78,7 @@ def main():
         Automate_1 = Automata()
         Automate_1 = Automate_0.minimize()[0]
         Automate_1.display_automate()
+        #Automate_1.afficher_automate_minimal(Automate_1, Automate_0.minimize()[1])
         del Automate_0
         del Automate_1
 

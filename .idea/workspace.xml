@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="ajout de la fonction remove epsilon + prise en compte des entrées sorties">
+    <list default="true" id="64018ecb-45f1-47e4-9316-5c093f04b5b3" name="Changes" comment="versions finales (j'espère) des fonctions read et remove epsilon">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Automates/automate_20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Automates/automate_20.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Automates/automate_21.txt" beforeDir="false" />
@@ -124,7 +124,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742569498306</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="versions finales (j'espère) des fonctions read et remove epsilon">
+      <option name="closed" value="true" />
+      <created>1742676131906</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742676131906</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,10 +143,11 @@
     <MESSAGE value="nouvelle version de la fonction de lecture de fichier automate.txt qui marche vraiment cette fois" />
     <MESSAGE value="ajout de la fonction remove_epsilon pour retirer les epsilons" />
     <MESSAGE value="ajout de la fonction remove epsilon + prise en compte des entrées sorties" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout de la fonction remove epsilon + prise en compte des entrées sorties" />
+    <MESSAGE value="versions finales (j'espère) des fonctions read et remove epsilon" />
+    <option name="LAST_COMMIT_MESSAGE" value="versions finales (j'espère) des fonctions read et remove epsilon" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Automate_project$Class_etat.coverage" NAME="Class_etat Coverage Results" MODIFIED="1742675043950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Automate_project$main.coverage" NAME="main Coverage Results" MODIFIED="1742675341744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Automate_project$main.coverage" NAME="main Coverage Results" MODIFIED="1742676041419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
