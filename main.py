@@ -44,7 +44,7 @@ def test_automata(automata_id):
     print("\tL'automate est minimisé, affichage :")
     automate_0.display_automate()
 
-def user_menu(auto_exists=False):
+def user_menu(auto_exists=False, user_automata=Automata(), minimized=False):
     print("{+=================== MENU =====================+}")
     print("")
     print("Veuillez choisir une option :")
@@ -63,7 +63,6 @@ def user_menu(auto_exists=False):
     print("{+==============================================+}")
     print("")
 
-    user_automata = Automata()
     choix = input("Votre choix :")
     while not choix.isdigit() or int(choix) < 1 or int(choix) > 10:
         print("Choix invalide. Veuillez entrer un nombre entre 1 et 10.")
@@ -74,7 +73,7 @@ def user_menu(auto_exists=False):
         print("")
         print("L'automate a été créé avec succès.")
         print("")
-        user_menu(True)
+        user_menu(True, user_automata)
 
     elif choix == "2":
         id_automate = input("Entrez l'id de l'automate à importer (1-44) :")
@@ -87,7 +86,7 @@ def user_menu(auto_exists=False):
         print("")
         print("L'automate a été importé avec succès.")
         print("")
-        user_menu(True)
+        user_menu(True, user_automata)
 
     elif choix == "3":
         if auto_exists:
@@ -95,7 +94,9 @@ def user_menu(auto_exists=False):
             print("")
             print("L'automate a été déterminisé avec succès.")
             print("")
-            user_menu(True)
+            if minimized:
+                user_menu(True, user_automata, True)
+            user_menu(True, user_automata)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
@@ -104,11 +105,14 @@ def user_menu(auto_exists=False):
 
     elif choix == "4":
         if auto_exists:
-            user_automata.minimize()
+            user_automata = user_automata.minimize()
+            minimized = True
             print("")
             print("L'automate a été minimisé avec succès.")
             print("")
-            user_menu(True)
+            if minimized:
+                user_menu(True, user_automata, True)
+            user_menu(True, user_automata)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
@@ -121,7 +125,7 @@ def user_menu(auto_exists=False):
             print("")
             print("L'automate a été complété avec succès.")
             print("")
-            user_menu(True)
+            user_menu(True, user_automata)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
@@ -135,6 +139,8 @@ def user_menu(auto_exists=False):
             print("")
             user_menu()
         else:
+            if minimized:
+                user_menu(True, user_automata, True)
             user_automata.display_automate()
             user_menu(True)
 
@@ -144,7 +150,7 @@ def user_menu(auto_exists=False):
             print("")
             print("L'automate a été standardisé avec succès.")
             print("")
-            user_menu(True)
+            user_menu(True, user_automata)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
@@ -157,7 +163,7 @@ def user_menu(auto_exists=False):
             print("Complémentaire de l'automate courant :")
             print("")
             user_automata.complementary().display_automate()
-            user_menu(True)
+            user_menu(True, user_automata)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
@@ -171,7 +177,6 @@ def user_menu(auto_exists=False):
             print("")
             user_menu()
         else:
-            user_automata = Automata()
             print("")
             print("L'automate a été supprimé avec succès.")
             print("")
