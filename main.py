@@ -105,7 +105,7 @@ def user_menu(auto_exists=False, user_automata=Automata(), minimized=False):
 
     elif choix == "4":
         if auto_exists:
-            user_automata = user_automata.minimize()
+            user_automata = user_automata.minimize()[0]
             minimized = True
             print("")
             print("L'automate a été minimisé avec succès.")
@@ -121,11 +121,19 @@ def user_menu(auto_exists=False, user_automata=Automata(), minimized=False):
 
     elif choix == "5":
         if auto_exists:
-            user_automata.complete_automate()
-            print("")
-            print("L'automate a été complété avec succès.")
-            print("")
-            user_menu(True, user_automata)
+            if not user_automata.complete:
+                user_automata.complete_automate()
+                print("")
+                print("L'automate a été complété avec succès.")
+                print("")
+                user_menu(True, user_automata)
+            else:
+                print("")
+                print("L'automate est déjà complet.")
+                print("")
+                if minimized:
+                    user_menu(True, user_automata, True)
+                user_menu(True, user_automata)
         else:
             print("")
             print("Aucun automate créé. Veuillez en créer un.")
@@ -140,9 +148,11 @@ def user_menu(auto_exists=False, user_automata=Automata(), minimized=False):
             user_menu()
         else:
             if minimized:
+                print(user_automata.complementary().complementary().display_automate())
                 user_menu(True, user_automata, True)
-            user_automata.display_automate()
-            user_menu(True)
+                #appel de la fonction afficher_minimisé
+            print(user_automata.display_automate())
+            user_menu(True, user_automata)
 
     elif choix == "7":
         if auto_exists:
@@ -162,7 +172,7 @@ def user_menu(auto_exists=False, user_automata=Automata(), minimized=False):
             print("")
             print("Complémentaire de l'automate courant :")
             print("")
-            user_automata.complementary().display_automate()
+            print(user_automata.complementary().display_automate())
             user_menu(True, user_automata)
         else:
             print("")
