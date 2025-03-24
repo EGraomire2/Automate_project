@@ -414,6 +414,11 @@ class Automata:
 
         comp_automata = self
 
+        if not comp_automata.complete:
+            comp_automata.complete_automate()
+        if not comp_automata.determinated:
+            comp_automata.determinate()
+
         #On échange les sorties et non-sorties :
         for i in range(len(comp_automata.states)):
             if comp_automata.states[i].is_exit():
